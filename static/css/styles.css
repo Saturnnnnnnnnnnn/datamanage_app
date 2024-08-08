@@ -1,0 +1,170 @@
+/* Основные стили для body */
+body {
+    font-family: Arial, sans-serif; /* Шрифт для всего тела страницы */
+    margin: 0; /* Убираем отступы */
+    padding: 0; /* Убираем внутренние отступы */
+    display: flex; /* Используем flexbox для выравнивания по центру */
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center; /* Центрируем по вертикали */
+    height: 100vh; /* Высота на весь экран */
+    background-color: #f4f4f4; /* Цвет фона */
+}
+
+/* Контейнер для содержимого страницы */
+.container {
+    display: flex; /* Используем flexbox для расположения дочерних элементов */
+    width: 90%; /* Ширина контейнера */
+    max-width: 1200px; /* Максимальная ширина */
+    background: #fff; /* Цвет фона контейнера */
+    border-radius: 8px; /* Скругление углов */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Тень для контейнера */
+    overflow: hidden; /* Убираем скроллбар из контейнера */
+    min-height: 500px; /* Минимальная высота контейнера */
+}
+
+/* Стили для секций формы и вывода */
+.form-section, .output-section {
+    padding: 20px; /* Внутренние отступы */
+    width: 50%; /* Ширина секций */
+    box-sizing: border-box; /* Учитываем отступы и границы в ширине */
+}
+
+/* Стили для секции формы */
+.form-section {
+    border-right: 1px solid #ddd; /* Граница справа от секции формы */
+}
+
+/* Заголовки секций */
+.form-section h2, .output-section h2 {
+    margin-top: 0; /* Убираем верхний отступ */
+    font-size: 24px; /* Размер шрифта */
+    color: #333; /* Цвет текста */
+}
+
+/* Стили для групп элементов формы */
+.form-group {
+    margin-bottom: 15px; /* Отступ снизу */
+}
+
+/* Метки для полей ввода */
+.form-group label {
+    display: block; /* Отображение как блок */
+    margin-bottom: 5px; /* Отступ снизу */
+    color: #666; /* Цвет текста */
+}
+
+/* Поля ввода */
+.form-group input {
+    width: calc(100% - 22px); /* Ширина поля ввода с учетом отступов */
+    padding: 10px; /* Внутренние отступы */
+    border: 1px solid #ddd; /* Граница */
+    border-radius: 4px; /* Скругление углов */
+    font-size: 16px; /* Размер шрифта */
+}
+
+/* Кнопки в формах и результатах */
+.form-group button,
+.result-buttons button,
+.hide-buttons button {
+    width: 100%; /* Ширина кнопки на всю доступную ширину */
+    padding: 10px; /* Внутренние отступы */
+    border: none; /* Без границы */
+    border-radius: 4px; /* Скругление углов */
+    color: #fff; /* Цвет текста */
+    background-color: #007bff; /* Основной цвет кнопок */
+    cursor: pointer; /* Указатель курсора при наведении */
+    font-size: 16px; /* Размер шрифта */
+    margin-top: 10px; /* Отступ сверху */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень для кнопок */
+    transition: all 0.3s ease; /* Плавные изменения при взаимодействии */
+}
+
+/* Эффект при наведении на кнопки */
+.form-group button:hover,
+.result-buttons button:hover,
+.hide-buttons button:hover {
+    background-color: #0056b3; /* Более темный оттенок при наведении */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Увеличенная тень при наведении */
+    transform: translateY(-2px); /* Поднятие кнопки при наведении */
+}
+
+/* Стили для уведомлений */
+.notification {
+    padding: 10px; /* Внутренние отступы */
+    margin-bottom: 20px; /* Отступ снизу */
+    border-radius: 5px; /* Скругление углов */
+    color: #fff; /* Цвет текста */
+    font-weight: bold; /* Полужирное начертание текста */
+}
+
+/* Разные типы уведомлений */
+.notification.success {
+    background-color: #28a745; /* Зеленый цвет для успешных уведомлений */
+}
+
+.notification.error {
+    background-color: #dc3545; /* Красный цвет для ошибок */
+}
+
+.notification.info {
+    background-color: #17a2b8; /* Голубой цвет для информационных уведомлений */
+}
+
+/* Секция для вывода результатов */
+.output-section {
+    overflow-y: auto; /* Скролл по вертикали, если контент превышает высоту */
+    background-color: #fafafa; /* Цвет фона */
+    border-left: 1px solid #ddd; /* Граница слева */
+    display: flex; /* Используем flexbox для размещения элементов */
+    flex-direction: column; /* Располагаем элементы по вертикали */
+}
+
+/* Результаты блоков */
+.output-section .result-block {
+    display: none; /* Скрыто по умолчанию */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+.output-section .result-block.active {
+    display: block; /* Отображение активного блока */
+}
+
+/* Элементы результата */
+.output-section .result-item {
+    padding: 10px; /* Внутренние отступы */
+    border: 1px solid #ddd; /* Граница */
+    border-radius: 4px; /* Скругление углов */
+    margin-bottom: 10px; /* Отступ снизу */
+    background-color: #fff; /* Цвет фона элемента */
+}
+
+/* Кнопки для управления отображением результатов */
+.result-buttons {
+    margin-top: 20px; /* Отступ сверху */
+    display: flex; /* Используем flexbox */
+    flex-direction: column; /* Располагаем элементы по вертикали */
+    gap: 10px; /* Пробел между кнопками */
+}
+
+.result-buttons button {
+    background-color: #28a745; /* Основной зеленый цвет для кнопок */
+}
+
+.result-buttons button:hover {
+    background-color: #218838; /* Более темный зеленый оттенок при наведении */
+}
+
+/* Кнопки для скрытия результатов */
+.hide-buttons {
+    display: flex; /* Используем flexbox */
+    gap: 10px; /* Пробел между кнопками */
+    margin-top: 20px; /* Отступ сверху */
+}
+
+.hide-buttons button {
+    background-color: #dc3545; /* Основной красный цвет для кнопок */
+}
+
+.hide-buttons button:hover {
+    background-color: #c82333; /* Более темный красный оттенок при наведении */
+}

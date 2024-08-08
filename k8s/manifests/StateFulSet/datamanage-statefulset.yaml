@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: datamanage-app
+spec:
+  serviceName: "datamanage-app"  # Имя Headless Service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: datamanage-app
+  template:
+    metadata:
+      labels:
+        app: datamanage-app
+    spec:
+      containers:
+      - name: datamanage-container
+        image: saturn0912/datamanagement:v1.1
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: datamanage-storage
+          mountPath: /data  # Путь внутри контейнера
+        env:
+        - name: MYSQL_HOST
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: MYSQL_HOST
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: MYSQL_PASSWORD
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: MYSQL_DATABASE
+  volumeClaimTemplates:
+  - metadata:
+      name: datamanage-storage  # Это имя должно совпадать с name в volumeMounts
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

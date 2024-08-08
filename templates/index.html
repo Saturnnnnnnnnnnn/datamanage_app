@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление заявками</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> <!-- Подключение CSS -->
+</head>
+<body>
+    <div class="container">
+        <!-- Раздел для управления заявками -->
+        <div class="form-section">
+            <h2>Управление заявками</h2>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="notification {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Форма для добавления заявки -->
+            <form method="post">
+                <div class="form-group">
+                    <label for="data">Добавить заявку:</label>
+                    <input type="text" id="data" name="data" placeholder="Введите данные заявки">
+                    <button type="submit" name="add">Добавить</button>
+                </div>
+            </form>
+
+            <!-- Форма для обновления заявки -->
+            <form method="post">
+                <div class="form-group">
+                    <label for="update_id">ID заявки для обновления:</label>
+                    <input type="text" id="update_id" name="update_id" placeholder="Введите ID заявки">
+                </div>
+                <div class="form-group">
+                    <label for="new_data">Новые данные заявки:</label>
+                    <input type="text" id="new_data" name="new_data" placeholder="Введите новые данные">
+                    <button type="submit" name="update">Обновить</button>
+                </div>
+            </form>
+
+            <!-- Форма для удаления заявки -->
+            <form method="post">
+                <div class="form-group">
+                    <label for="delete_id">ID заявки для удаления:</label>
+                    <input type="text" id="delete_id" name="delete_id" placeholder="Введите ID заявки">
+                    <button type="submit" name="delete">Удалить</button>
+                </div>
+            </form>
+
+            <!-- Форма для завершения заявки -->
+            <form method="post">
+                <div class="form-group">
+                    <label for="complete_id">ID заявки для завершения:</label>
+                    <input type="text" id="complete_id" name="complete_id" placeholder="Введите ID заявки">
+                    <button type="submit" name="complete">Завершить</button>
+                </div>
+            </form>
+
+            <!-- Кнопки для отображения результатов -->
+            <div class="result-buttons">
+                <form method="post" style="display: inline;">
+                    <button type="submit" name="show_requests">Показать все заявки</button>
+                    <button type="submit" name="average_time">Показать среднее время выполнения</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Раздел для отображения результатов -->
+        <div class="output-section">
+            <h2>Результаты</h2>
+
+            <!-- Блок для отображения всех заявок -->
+            <div class="result-block {% if show_requests %}active{% endif %}" id="requests-block">
+                <h3>Все заявки</h3>
+                <div class="result-items">
+                    {{ requests | safe }}
+                </div>
+            </div>
+
+            <!-- Блок для отображения среднего времени выполнения -->
+            <div class="result-block {% if show_avg_time %}active{% endif %}" id="average-time-block">
+                <h3>Среднее время выполнения</h3>
+                <p>{{ average_time_message }}</p>
+            </div>
+
+            <!-- Кнопки для скрытия результатов -->
+            <div class="hide-buttons">
+                <form method="post" style="display: inline;">
+                    <button type="submit" name="hide_requests">Скрыть все заявки</button>
+                    <button type="submit" name="hide_avg_time">Скрыть среднее время</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function hideBlock(blockId) {
+            var block = document.getElementById(blockId);
+            if (block) {
+                block.classList.toggle('active');
+            }
+            return false;  // Предотвращаем отправку формы
+        }
+    </script>
+</body>
+</html>

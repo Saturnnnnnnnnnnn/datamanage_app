@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-test-pod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command: [ "sleep", "infinity" ]
+    env:
+    - name: MYSQL_HOST
+      value: "192.168.0.106"  # Замените на IP-адрес или имя хоста вашего MySQL сервера
+    - name: MYSQL_PORT
+      value: "3306"           # Порт MySQL
