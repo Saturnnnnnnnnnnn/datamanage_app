@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Minikube
+      uses: medyagh/setup-minikube@latest
+      with:
+        cache: false
+        minikube-version: '1.24.0'
+        driver: docker
+        kubernetes-version: 'v1.22.3'
+        cpus: 2
+        memory: '2048m'
+        addons: 'ingress'
+        wait: true
+
+    - name: Build Docker image
+      run: |
+        minikube image build -t local/datamanagement:v1 .
+
+    - name: Deploy to Minikube
+      run: |
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml
+        kubectl apply -f k8s/ingress.yaml
+        kubectl rollout status deployment/datamanagement-deployment
+
+    - name: Test service
+      run: |
+        minikube service datamanagement-service --url
+        curl $(minikube service datamanagement-service --url) # Проверьте доступность вашего приложения
