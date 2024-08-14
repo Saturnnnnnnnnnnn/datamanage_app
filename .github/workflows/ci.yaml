@@ -21,8 +21,8 @@ jobs:
         minikube-version: '1.24.0'
         driver: docker
         kubernetes-version: 'v1.22.3'
-        cpus: 2
-        memory: '2048m'
+        cpus: 4
+        memory: '4096m'
         addons: 'ingress'
         wait: true
 
@@ -37,6 +37,11 @@ jobs:
         kubectl apply -f k8s/manifests/Deployment/ingress.yaml
         kubectl apply -f k8s/manifests/Deployment/secrets.yaml
         kubectl rollout status deployment/datamanagement-deployment
+
+    - name: Expose Ingress ports
+      run: |
+        minikube tunnel &
+        kubectl get svc -n ingress-nginx
 
     - name: Test service
       run: |
